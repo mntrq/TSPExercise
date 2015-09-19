@@ -24,6 +24,13 @@ angular.module('todo', [])
                 complete: true
             }];
 
+        $s.add = function(){
+            var item = [{
+                name: $s.itemName,
+            }];
+            $s.list.push(item);
+        }
+
     }])
     .controller('tab2', ['$scope',
         function ($s) {

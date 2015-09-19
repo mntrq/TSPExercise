@@ -10,11 +10,16 @@
 </head>
 <body>
   
-<div ng-app="todo" ng-controller="page"> <a href="" ng-click="ui.current(1);">Tab 1</a>
- <a href="" ng-click="ui.current(2);">Tab 2</a>
+<div ng-app="todo" ng-controller="page"> 
+  <a href="" ng-click="ui.current(1);">Tab 1</a>
+  <a href="" ng-click="ui.current(2);">Tab 2</a>
 
     <hr/>
     <div ng-controller="tab1" ng-show="ui.isCurrent(1);">Tab 1
+        
+        <input type="text" ng-model="itemName" placeholder="Enter your item"></input>
+        <button ng-click="add(itemName)"> Add </button>
+
         <ul ng-repeat="item in list">
             <li ng-class="{ 'done': item.complete }">{{item.name}}</li>
         </ul>
