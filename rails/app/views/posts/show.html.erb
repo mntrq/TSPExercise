@@ -15,5 +15,17 @@
   <%= @post.body %>
 </p>
 
+<p>
+  
+  <% @post.tags.each do |tag| %>
+	<tr>
+    <strong>Tag:</strong>
+		<td><%= link_to tag.name, tag %></td>
+    <td><%= link_to 'Remove tag', '/posts/' +@post.id.to_s+ '/removetag/' +tag.id.to_s %></td><br>
+		<tr>
+	<% end %>
+</p>
+
 <%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Add tag', '/posts/'+@post.id.to_s+'/addtag' %> |
 <%= link_to 'Back', posts_path %>

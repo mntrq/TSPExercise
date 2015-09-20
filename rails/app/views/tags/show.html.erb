@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Email:</strong>
-  <%= @user.email %>
+  <strong>Tag Name:</strong>
+  <%= @tag.name %>
 </p>
 
 <table>
@@ -16,17 +16,14 @@
   </thead>
 
   <tbody>
-    <% @userposts.each do |post| %>
+    <% @tag.posts.each do |post| %>
       <tr>
         <td><%= post.user_id %></td>
         <td><%= post.title %></td>
         <td><%= post.body %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', tags_path %>

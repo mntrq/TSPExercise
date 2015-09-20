@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :add, :removetag]
   # GET /posts
   # GET /posts.json
   def index
@@ -10,6 +9,26 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+  end
+
+  def add
+    newtag = Tag.find_by(name: params[:tag_name])
+    if newtag == nil
+      redirect_to new_tag_path
+    else
+      @post.tags << newtag
+      redirect_to post_path(@post), notice: 'Tag was successfully created.'
+    end
+  end
+
+  def removetag
+    if @post.user_id == current_user.id
+      atag = Tag.find(params[:tagid])
+      @post.tags.delete(atag)
+      redirect_to post_path, notice: 'Tag was successfully removed.'
+    else
+      redirect_to post_path, notice: 'You are not allowed to remove this tag.'
+    end
   end
 
   # GET /posts/new
@@ -27,7 +46,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.user_id == current_user.id
-      respond_to do |format|
+      respond_to do |format| 
         if @post.save
           format.html { redirect_to @post, notice: 'Post was successfully created.' }
           format.json { render :show, status: :created, location: @post }
